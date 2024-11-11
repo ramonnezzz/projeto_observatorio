@@ -3,10 +3,6 @@ package com.mycompany.projeto_observatorio;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Arthur
- */
 public class TelaInicial extends javax.swing.JFrame {
     Cidade cidade1 = new Cidade(11,"São Paulo","São Paulo");
     Cidade cidade2 = new Cidade(63,"Palmas","Tocantins");
@@ -17,9 +13,6 @@ public class TelaInicial extends javax.swing.JFrame {
     Observatorio observatorio2 = new Observatorio(2,cidade2);
     
     ArrayList <Visitante> visitantes = new ArrayList<>();
-    /**
-     * Creates new form TelaInicial
-     */
     public TelaInicial() {
         initComponents();
         diretoNoCodigo();
