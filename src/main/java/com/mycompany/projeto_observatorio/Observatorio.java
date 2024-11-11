@@ -12,6 +12,30 @@ public class Observatorio implements InterfaceObservatorio {
         this.cidade = cidade;
         this.visitantes = new ArrayList<>();
     }
+    
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+
+    public List<Visitante> getVisitantes() {
+        return visitantes;
+    }
+
+    public void setVisitantes(List<Visitante> visitantes) {
+        this.visitantes = visitantes;
+    }
 
     @Override
     public void adicionarVisitante(Visitante visitante) {
