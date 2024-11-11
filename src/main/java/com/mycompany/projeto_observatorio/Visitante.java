@@ -27,9 +27,27 @@ public class Visitante {
     public Cidade getCidade() {
         return cidade;
     }
+    
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
 
     @Override
     public String toString() {
         return "Visitante{" + "cpf=" + cpf + ", nome=" + nome + ", telefone=" + telefone + ", cidade=" + cidade + '}';
     }
+
+    
 }
