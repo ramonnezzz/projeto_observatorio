@@ -1,24 +1,37 @@
 package com.mycompany.projeto_observatorio;
 
 import java.util.ArrayList;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Arthur
+ */
 public class TelaInicial extends javax.swing.JFrame {
-    Cidade cidade1 = new Cidade(11,"São Paulo","São Paulo");
-    Cidade cidade2 = new Cidade(63,"Palmas","Tocantins");
-    Cidade cidade3 = new Cidade(62,"Goiânia","Goiás");
-    Associacao associacao1 = new Associacao(10,"25/01/2012");
-    Associacao associacao2 = new Associacao(20,"23/02/2004");
-    Observatorio observatorio1 = new Observatorio(1,cidade1);
-    Observatorio observatorio2 = new Observatorio(2,cidade2);
-    
+    ArrayList<Cidade> listaCidades = new ArrayList<>();
     ArrayList <Visitante> visitantes = new ArrayList<>();
+    ArrayList <Observatorio> ListaObservatorios = new ArrayList<>();
+    /**
+     * Creates new form TelaInicial
+     */
     public TelaInicial() {
         initComponents();
         diretoNoCodigo();
     }
     
     public void diretoNoCodigo (){
+        Cidade cidade1 = new Cidade(11,"São Paulo","São Paulo");
+        Cidade cidade2 = new Cidade(63,"Palmas","Tocantins");
+        Cidade cidade3 = new Cidade(62,"Goiânia","Goiás");
+        listaCidades.add(cidade1);
+        listaCidades.add(cidade2);
+        listaCidades.add(cidade3);
+        
+        Observatorio observatorio1 = new Observatorio(1,cidade1);
+        Observatorio observatorio2 = new Observatorio(2,cidade2);
+        ListaObservatorios.add(observatorio1);
+        ListaObservatorios.add(observatorio2);
         
         Visitante f = new Visitante("012345678912","Arthur","63999999",cidade1);
         visitantes.add(f);
@@ -28,9 +41,9 @@ public class TelaInicial extends javax.swing.JFrame {
         visitantes.add(f);
         f = new Visitante("98732165403","Lucas","63666666",cidade2);
         visitantes.add(f);
-        f = new VisitanteAssociado("36925814702","Reinaldo","635555555",cidade3,associacao1);
+        f = new VisitanteAssociado("36925814702","Reinaldo","635555555",cidade3,1,"10/03/2023");
         visitantes.add(f);
-        f = new VisitanteAssociado("14725836989","Francisco","63444444",cidade3,associacao2);
+        f = new VisitanteAssociado("14725836989","Francisco","63444444",cidade3,2,"10/02/2022");
         visitantes.add(f);
     }
     public Visitante buscarVisitante(String cpf){
@@ -41,7 +54,30 @@ public class TelaInicial extends javax.swing.JFrame {
     }
         return null;
 }
-
+    public Cidade buscarCidade(int codigoCidade) {
+    for (Cidade cidade : listaCidades) {
+        if (cidade.getCodigo() == codigoCidade) {
+            return cidade; // Retorna a cidade encontrada
+        }
+    }
+    return null; // Se não encontrar, retorna null
+}
+    public Observatorio buscarObservatorio(int codObservatorio) {
+    for (Observatorio observatorio : ListaObservatorios) {
+        if (observatorio.getCodigo() == codObservatorio) {
+            return observatorio; // Retorna o obersvatório encontrado
+        }
+    }
+    return null; // Se não encontrar, retorna null
+}
+    public void imprimirQuantVisitantes (){
+        String saida = "Total de visitantes";
+        for(Observatorio o: ListaObservatorios){
+            saida += "\t\n" + o.getCodigo()+ " - " + o.getCidade().getNome() + " - " + (o.totalVisitantesAssociados() + o.totalVisitantesNaoAssociados());
+        }
+        JOptionPane.showMessageDialog(null, saida);
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +89,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         InserirVisitante = new javax.swing.JButton();
         cbxTipo = new javax.swing.JComboBox<>();
+        inserirObservatorio = new javax.swing.JButton();
+        inserirVisitanteObservatorio = new javax.swing.JButton();
+        imprimirVisitantesObservatorios = new javax.swing.JButton();
+        imprimirNomesVisitantesObservatorioEspecifico = new javax.swing.JButton();
+        imprimirTodos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,16 +111,63 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        inserirObservatorio.setText("Inserir observatório");
+        inserirObservatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirObservatorioActionPerformed(evt);
+            }
+        });
+
+        inserirVisitanteObservatorio.setText("Inserir visitante em um observatório");
+        inserirVisitanteObservatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirVisitanteObservatorioActionPerformed(evt);
+            }
+        });
+
+        imprimirVisitantesObservatorios.setText("Imprimir visitantes dos observatorios");
+        imprimirVisitantesObservatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirVisitantesObservatoriosActionPerformed(evt);
+            }
+        });
+
+        imprimirNomesVisitantesObservatorioEspecifico.setText("Imprimir nomes de visitantes de observatórios específicos");
+        imprimirNomesVisitantesObservatorioEspecifico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirNomesVisitantesObservatorioEspecificoActionPerformed(evt);
+            }
+        });
+
+        imprimirTodos.setText("Imprimir todos");
+        imprimirTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(InserirVisitante)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(82, 82, 82))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(InserirVisitante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                        .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(inserirObservatorio)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(imprimirTodos)
+                            .addComponent(imprimirNomesVisitantesObservatorioEspecifico)
+                            .addComponent(imprimirVisitantesObservatorios)
+                            .addComponent(inserirVisitanteObservatorio))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,7 +176,17 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(InserirVisitante)
                     .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(236, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(inserirObservatorio)
+                .addGap(29, 29, 29)
+                .addComponent(inserirVisitanteObservatorio)
+                .addGap(18, 18, 18)
+                .addComponent(imprimirVisitantesObservatorios)
+                .addGap(31, 31, 31)
+                .addComponent(imprimirNomesVisitantesObservatorioEspecifico)
+                .addGap(34, 34, 34)
+                .addComponent(imprimirTodos)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -99,13 +197,98 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxTipoActionPerformed
 
     private void InserirVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InserirVisitanteActionPerformed
+        
         String cpf = JOptionPane.showInputDialog("Digite o cpf: ");
-        if(buscarVisitante(cpf) == null){
-            JOptionPane.showMessageDialog(null,"CPF incorreto ou inexistente!");
-            
+        if(buscarVisitante(cpf) != null){
+            JOptionPane.showMessageDialog(null,"Visitante já cadastrado!"); //Verifica se o visitante foi cadastrado
         }
-
+        
+        else { //Caso n seja cadastrado, ira cadastrar agora
+            String nome = JOptionPane.showInputDialog("Digite o seu nome:");
+            String telefone = JOptionPane.showInputDialog("Digite o telefone:");
+            int codigoCidade =  Integer.parseInt(JOptionPane.showInputDialog("Digite o código da cidade:"));
+            
+            Cidade cidade = buscarCidade(codigoCidade); //Verifica
+            
+            if (cbxTipo.getSelectedIndex() == 0){
+                Visitante v = new Visitante(cpf,nome,telefone,cidade);
+                visitantes.add(v);
+                JOptionPane.showMessageDialog(null,"Visitante cadastrado com sucesso");
+            }
+            else{
+                
+                int codAssocia = Integer.parseInt(JOptionPane.showInputDialog("Digite o código da associação: "));
+                String dataAss = JOptionPane.showInputDialog("Digite o Data de Validade da Associação ");
+                Visitante vA = new  VisitanteAssociado(cpf, nome, telefone, cidade, codAssocia, dataAss);
+                visitantes.add(vA);
+                JOptionPane.showMessageDialog(null, "Visitante associado cadastrado com sucesso!");
+                }
+            }
     }//GEN-LAST:event_InserirVisitanteActionPerformed
+
+    private void inserirObservatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirObservatorioActionPerformed
+        int codObservatorio = Integer.parseInt(JOptionPane.showInputDialog("Digite o código do observatório: "));
+        int codCidade = Integer.parseInt(JOptionPane.showInputDialog("Digite o código da cidade:"));
+        Cidade cidade = buscarCidade(codCidade);
+        Observatorio observatorio = buscarObservatorio(codObservatorio);
+        
+        if (cidade == null && observatorio.getCodigo() != codObservatorio  ) {
+            observatorio.setCodigo(codCidade);
+            observatorio.setCidade(cidade);
+            JOptionPane.showMessageDialog(null, "Observatório cadastrado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Código repetido ou cidade não encontrada!");
+        }
+    }//GEN-LAST:event_inserirObservatorioActionPerformed
+
+    private void inserirVisitanteObservatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirVisitanteObservatorioActionPerformed
+        
+        String cpf = JOptionPane.showInputDialog("Digite o cpf: ");
+        Visitante v = buscarVisitante(cpf);
+        if (v!= null){ 
+            int codObservatorio = Integer.parseInt(JOptionPane.showInputDialog("Qual o código do observatório:"));
+            Observatorio o = buscarObservatorio(codObservatorio);
+            if (o != null && o.getCodigo() == codObservatorio ){
+                o.adicionarVisitante(v);
+                JOptionPane.showMessageDialog(null,"Visitante cadastrado com sucesso!");
+                }
+            else{
+                JOptionPane.showMessageDialog(null,"Observatório não encontrado!");
+                }     
+        }else{
+            JOptionPane.showMessageDialog(null,"Usuário não cadastrado!");
+        }
+        
+    }//GEN-LAST:event_inserirVisitanteObservatorioActionPerformed
+
+    private void imprimirVisitantesObservatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirVisitantesObservatoriosActionPerformed
+        imprimirQuantVisitantes();
+    }//GEN-LAST:event_imprimirVisitantesObservatoriosActionPerformed
+
+    private void imprimirNomesVisitantesObservatorioEspecificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirNomesVisitantesObservatorioEspecificoActionPerformed
+        String saida = "Total de visitantes \n";
+        int codObservatorio = Integer.parseInt(JOptionPane.showInputDialog("Qual o código do observatório:"));
+        
+        Observatorio o = buscarObservatorio(codObservatorio);
+            if (o != null && o.getCodigo() == codObservatorio ){
+                ArrayList<Visitante> visitantes = o.getVisitantes();
+                for(Visitante v: visitantes){
+                    if(!v.getCidade().getNome().equals(o.getCidade().getNome())){
+                        saida += "-"+ v.getNome()+ "\n";
+        }           
+                    }
+        JOptionPane.showMessageDialog(null, saida);
+            }
+    }//GEN-LAST:event_imprimirNomesVisitantesObservatorioEspecificoActionPerformed
+
+    private void imprimirTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirTodosActionPerformed
+        
+        int codObservatorio = Integer.parseInt(JOptionPane.showInputDialog("Digite o código do observatório: "));
+        Observatorio o = buscarObservatorio(codObservatorio);
+        String saida = o.relatorioVisitantes();
+        JOptionPane.showMessageDialog(null,"Saída:" + saida);
+        
+    }//GEN-LAST:event_imprimirTodosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,5 +328,10 @@ public class TelaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton InserirVisitante;
     private javax.swing.JComboBox<String> cbxTipo;
+    private javax.swing.JButton imprimirNomesVisitantesObservatorioEspecifico;
+    private javax.swing.JButton imprimirTodos;
+    private javax.swing.JButton imprimirVisitantesObservatorios;
+    private javax.swing.JButton inserirObservatorio;
+    private javax.swing.JButton inserirVisitanteObservatorio;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>22</maven.compiler.release>
-        <exec.mainClass>com.mycompany.projeto_observatorio.Projeto_observatorio</exec.mainClass>
+        <maven.compiler.release>20</maven.compiler.release>
+        <exec.mainClass>com.mycompany.projeto_observatorio.TelaInicial</exec.mainClass>
     </properties>
 </project>

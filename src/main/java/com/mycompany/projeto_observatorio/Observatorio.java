@@ -1,45 +1,45 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.mycompany.projeto_observatorio;
+
+/**
+ *
+ * @author savio
+ */
 import java.util.ArrayList;
 import java.util.List;
 
 public class Observatorio implements InterfaceObservatorio {
     private int codigo;
     private Cidade cidade;
-    private List<Visitante> visitantes;
-
+    private ArrayList<Visitante> visitantes;
+    
+    public Observatorio(){
+    }
+    
     public Observatorio(int codigo, Cidade cidade) {
         this.codigo = codigo;
         this.cidade = cidade;
         this.visitantes = new ArrayList<>();
     }
-    
-    public int getCodigo() {
-        return codigo;
+
+    @Override
+    public void adicionarVisitante(Visitante visitante) {
+        visitantes.add(visitante);
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public int getCodigo() {
+        return codigo;
     }
 
     public Cidade getCidade() {
         return cidade;
     }
 
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
-    }
-
-    public List<Visitante> getVisitantes() {
+    public ArrayList<Visitante> getVisitantes() {
         return visitantes;
-    }
-
-    public void setVisitantes(List<Visitante> visitantes) {
-        this.visitantes = visitantes;
-    }
-
-    @Override
-    public void adicionarVisitante(Visitante visitante) {
-        visitantes.add(visitante);
     }
 
     @Override
@@ -56,6 +56,18 @@ public class Observatorio implements InterfaceObservatorio {
             }
         }
         return count;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+
+    public void setVisitantes(ArrayList<Visitante> visitantes) {
+        this.visitantes = visitantes;
     }
 
     @Override
